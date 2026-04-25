@@ -2,11 +2,14 @@ FROM frappe/erpnext:v16.15.1
 
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc g++ \
+    && apt-get install -y --no-install-recommends gcc g++ python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 USER frappe
 WORKDIR /home/frappe/frappe-bench
+
+# Pre-install C-extension packages that require gcc before the main app installs.
+RUN env/bin/pip install --quiet greenlet ruamel.yaml.clib
 
 ARG PRESS_REPO=https://github.com/frappe/press
 ARG PRESS_BRANCH=master
