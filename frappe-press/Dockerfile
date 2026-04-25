@@ -28,3 +28,5 @@ RUN git clone --depth 1 --branch "${PRESS_BRANCH}" "${PRESS_REPO}" apps/press \
     && printf 'frappe\nerpnext\npress\nlms\n' > sites/apps.txt \
     && bench setup procfile \
     && sed -i '/^redis/d; /^watch/d' Procfile
+
+    
