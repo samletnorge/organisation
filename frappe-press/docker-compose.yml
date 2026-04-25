@@ -63,6 +63,8 @@ services:
         bench set-config -g redis_queue "redis://$${REDIS_QUEUE}";
         bench set-config -g redis_socketio "redis://$${REDIS_SOCKETIO}";
 
+        grep -qxF press sites/apps.txt || echo press >> sites/apps.txt;
+
         if [ ! -d "sites/$${SITE_NAME}" ]; then
           bench new-site "$${SITE_NAME}" \
             --mariadb-root-password "$${DB_ROOT_PASSWORD}" \
@@ -73,6 +75,7 @@ services:
         fi
 
         bench use "$${SITE_NAME}";
+        bench setup procfile;
         bench start
       '
 

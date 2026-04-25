@@ -10,4 +10,6 @@ ARG PRESS_BRANCH=master
 # bench get-app runs yarn install unconditionally; press dev deps require Node >=20
 # but the base image ships Node 18. Cloning + pip-installing directly skips yarn.
 RUN git clone --depth 1 --branch "${PRESS_BRANCH}" "${PRESS_REPO}" apps/press \
-    && env/bin/pip install --quiet -e apps/press
+    && env/bin/pip install --quiet -e apps/press \
+    && echo "press" >> sites/apps.txt \
+    && bench setup procfile
