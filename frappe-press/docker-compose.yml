@@ -82,7 +82,6 @@ services:
         if [ -n "$${HOST_NAME}" ]; then
           bench --site "$${SITE_NAME}" set-config host_name "$${HOST_NAME}";
         fi
-        bench --site "$${SITE_NAME}" sync-fixtures;
         bench --site "$${SITE_NAME}" clear-cache;
         bench start
       '
