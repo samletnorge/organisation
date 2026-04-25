@@ -50,6 +50,7 @@ services:
       REDIS_CACHE: redis-cache:6379
       REDIS_QUEUE: redis-queue:6379
       REDIS_SOCKETIO: redis-socketio:6379
+      HOST_NAME: ${HOST_NAME:-}
     ports:
       - "${APP_PORT:-9000}:8000"
     volumes:
@@ -78,6 +79,10 @@ services:
 
         bench use "$${SITE_NAME}";
         bench --site "$${SITE_NAME}" migrate;
+        if [ -n "$${HOST_NAME}" ]; then
+          bench --site "$${SITE_NAME}" set-config host_name "$${HOST_NAME}";
+        fi
+        bench --site "$${SITE_NAME}" clear-cache;
         bench start
       '
 
