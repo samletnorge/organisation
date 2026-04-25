@@ -63,7 +63,7 @@ services:
         bench set-config -g redis_queue "redis://$${REDIS_QUEUE}";
         bench set-config -g redis_socketio "redis://$${REDIS_SOCKETIO}";
 
-        printf "frappe\nerpnext\npress\n" > sites/apps.txt;
+        printf "frappe\nerpnext\npress\nlms\n" > sites/apps.txt;
 
         if [ ! -d "sites/$${SITE_NAME}" ]; then
           bench new-site "$${SITE_NAME}" \
@@ -71,6 +71,8 @@ services:
             --admin-password "$${ADMIN_PASSWORD}" \
             --db-host "$${DB_HOST}" \
             --set-default;
+          bench --site "$${SITE_NAME}" install-app erpnext;
+          bench --site "$${SITE_NAME}" install-app lms;
           bench --site "$${SITE_NAME}" install-app press;
         fi
 
