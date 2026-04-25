@@ -6,7 +6,8 @@ WORKDIR /home/frappe/frappe-bench
 ARG PRESS_REPO=https://github.com/frappe/press
 ARG PRESS_BRANCH=master
 
-# Fetch the Press app into the bench for site setup and management.
-# --skip-assets avoids the yarn/node build step (requires Node >=20, base has 18).
-# Assets are built when the app is installed into a site at runtime.
-RUN bench get-app --branch "${PRESS_BRANCH}" --skip-assets press "${PRESS_REPO}"
+# Fetch Press manually to bypass bench's yarn install step.
+# bench get-app runs yarn install unconditionally; press dev deps require Node >=20
+# but the base image ships Node 18. Cloning + pip-installing directly skips yarn.
+RUN git clone --depth 1 --branch "${PRESS_BRANCH}" "${PRESS_REPO}" apps/press \
+    && env/bin/pip install --quiet -e apps/press
