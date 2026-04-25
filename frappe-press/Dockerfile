@@ -12,4 +12,5 @@ ARG PRESS_BRANCH=master
 RUN git clone --depth 1 --branch "${PRESS_BRANCH}" "${PRESS_REPO}" apps/press \
     && env/bin/pip install --quiet -e apps/press \
     && printf 'frappe\nerpnext\npress\n' > sites/apps.txt \
-    && bench setup procfile
+    && bench setup procfile \
+    && sed -i '/^redis/d' Procfile
