@@ -11,5 +11,5 @@ ARG PRESS_BRANCH=master
 # but the base image ships Node 18. Cloning + pip-installing directly skips yarn.
 RUN git clone --depth 1 --branch "${PRESS_BRANCH}" "${PRESS_REPO}" apps/press \
     && env/bin/pip install --quiet -e apps/press \
-    && echo "press" >> sites/apps.txt \
+    && printf 'frappe\nerpnext\npress\n' > sites/apps.txt \
     && bench setup procfile

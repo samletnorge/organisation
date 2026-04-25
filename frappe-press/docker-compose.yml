@@ -63,7 +63,7 @@ services:
         bench set-config -g redis_queue "redis://$${REDIS_QUEUE}";
         bench set-config -g redis_socketio "redis://$${REDIS_SOCKETIO}";
 
-        grep -qxF press sites/apps.txt || echo press >> sites/apps.txt;
+        printf "frappe\nerpnext\npress\n" > sites/apps.txt;
 
         if [ ! -d "sites/$${SITE_NAME}" ]; then
           bench new-site "$${SITE_NAME}" \
@@ -75,7 +75,6 @@ services:
         fi
 
         bench use "$${SITE_NAME}";
-        bench setup procfile;
         bench start
       '
 
