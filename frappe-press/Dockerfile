@@ -1,5 +1,10 @@
 FROM frappe/erpnext:v16.15.1
 
+USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gcc g++ \
+    && rm -rf /var/lib/apt/lists/*
+
 USER frappe
 WORKDIR /home/frappe/frappe-bench
 
