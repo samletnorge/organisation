@@ -9,3 +9,4 @@ important systems needed to run a business in one collection
 - `frappe-crm/`: Dokploy-ready Docker setup for running https://github.com/frappe/crm
 - `frappe-erpnext/`: Dokploy-ready Docker setup for running https://github.com/frappe/erpnext
 - `frappe-helpdesk/`: Dokploy-ready Docker setup for running https://github.com/frappe/helpdesk
+ 
